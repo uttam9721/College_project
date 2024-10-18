@@ -28,7 +28,9 @@ export const  userRegister = async (req, res) => {
   // console.log(token)
       res.status(201).cookie("token",token,{
           httpOnly:true,
-          maxAge:10*60*1000 //expire time
+          maxAge:10*60*1000, //expire time
+          sameSite:process.env.NODE_ENV==="Development"?"lax":"none",
+          secure:process.env.NODE_ENV=="Development"?false:true
       }).json({ 
           success: true, 
           message: "User Register successfully" ,
